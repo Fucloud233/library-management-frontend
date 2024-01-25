@@ -3,9 +3,14 @@ import store from "../store";
 
 const routes = [
     {
-        path: "/",
+        path: "/login",
         name: "login",
         component: () => import("../views/AdminLogin.vue"),
+    },
+    {
+        path: "/",
+        name: "main",
+        component: () => import("../views/MainPage.vue"),
     },
 ];
 

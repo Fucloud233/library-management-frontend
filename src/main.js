@@ -9,9 +9,5 @@ import store from "./store";
 
 const app = createApp(App);
 
-app.use(ElementPlus, {
-    size: "large",
-})
-    .use(router)
-    .use(store);
+app.use(ElementPlus).use(router).use(store);
 app.mount("#app");
