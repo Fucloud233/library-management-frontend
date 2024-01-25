@@ -1,33 +1,33 @@
 <template>
-    <el-aside width="300px">
-        <el-menu default-active="1">
-            <div style="text-align: center">
-                <h1>图书管理系统</h1>
-            </div>
-            <el-divider style="margin: 5px 0 5px 0" />
-            <el-menu-item index="1">
-                <el-icon><Sort /></el-icon>图书借还
-            </el-menu-item>
-            <el-menu-item index="2">
-                <el-icon><Notebook /></el-icon>图书管理
-            </el-menu-item>
-            <el-menu-item index="3">
-                <el-icon><CreditCard /></el-icon>违规管理
-            </el-menu-item>
+    <div id="container">
+        <el-aside width="300px">
+            <el-menu default-active="1" @select="handleSelect">
+                <div style="text-align: center">
+                    <h1>图书管理系统</h1>
+                </div>
+                <el-divider style="margin: 5px 0 5px 0" />
+                <el-menu-item index="/affair">
+                    <el-icon><Sort /></el-icon>图书借还
+                </el-menu-item>
+                <el-menu-item index="/book">
+                    <el-icon><Notebook /></el-icon>图书管理
+                </el-menu-item>
+                <el-menu-item index="/violation">
+                    <el-icon><CreditCard /></el-icon>违规管理
+                </el-menu-item>
 
-            <el-sub-menu index="4">
-                <template #title>
-                    <el-icon><User /></el-icon>读者管理
-                </template>
-                <el-menu-item-group index="4">
-                    <el-menu-item index="4-1">管理员</el-menu-item>
-                    <el-menu-item index="4-2">读者</el-menu-item>
-                    <el-menu-item index="4-3">读者身份</el-menu-item>
-                </el-menu-item-group>
-            </el-sub-menu>
-        </el-menu>
-    </el-aside>
-    <el-main></el-main>
+                <el-sub-menu index="">
+                    <template #title>
+                        <el-icon><User /></el-icon>用户管理
+                    </template>
+                    <el-menu-item index="/admin">管理员</el-menu-item>
+                    <el-menu-item index="/reader">读者</el-menu-item>
+                    <el-menu-item index="/readerRole">读者身份</el-menu-item>
+                </el-sub-menu>
+            </el-menu>
+        </el-aside>
+        <el-main> <router-view></router-view> </el-main>
+    </div>
 </template>
 
 <script>
@@ -43,10 +43,22 @@ export default {
     data() {
         return {};
     },
+    methods: {
+        handleSelect(key) {
+            this.$router.push({
+                path: key,
+            });
+        },
+    },
 };
 </script>
 
 <style scoped>
+#container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
 .el-aside,
 .el-menu {
     height: 100%;
