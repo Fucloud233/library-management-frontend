@@ -8,10 +8,13 @@
                 <h1>管理员登录</h1>
                 <el-form :model="loginInfo">
                     <el-form-item label="工号">
-                        <el-input v-model="loginInfo.id"></el-input>
+                        <el-input v-model.number="loginInfo.id"></el-input>
                     </el-form-item>
                     <el-form-item label="密码">
-                        <el-input v-model="loginInfo.password"></el-input>
+                        <el-input
+                            v-model="loginInfo.password"
+                            show-password
+                        ></el-input>
                     </el-form-item>
                 </el-form>
 
@@ -28,18 +31,36 @@
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
+import { adminLogin } from "../api/admin";
+
 export default {
     data() {
         return {
             loginInfo: {
-                id: 1,
-                password: 123456,
+                id: 10000001,
+                // password: "123456",
             },
         };
     },
     methods: {
-        login() {
+        async login() {
             console.log(this.loginInfo);
+
+            let result = await adminLogin(this.loginInfo);
+            if (result.code !== 0) {
+                return;
+            }
+
+            let flag = result.data.flag;
+            if (!flag) {
+                ElMessage.error("账号或者密码输入错误!");
+                return;
+            }
+
+            this.$store.commit("login", result.data.info);
+            this.$router.push("/reader");
+            this.loginInfo = {};
         },
     },
 };

@@ -4,11 +4,14 @@ const store = createStore({
     state() {
         return {
             hasLogged: false,
-            userInfo: {
-                id: undefined,
-                privilege: undefined,
-            },
+            adminInfo: {},
         };
+    },
+    mutations: {
+        login(state, adminInfo) {
+            state.hasLogged = true;
+            state.adminInfo = adminInfo;
+        },
     },
 });
 

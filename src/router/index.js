@@ -48,9 +48,14 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
+    // 当登入之后，临时跳转到这里
+    const tempToPageName = "reader";
+
     const hasLogged = store.state.hasLogged;
     if (!hasLogged && to.name !== "login") {
         return { name: "login" };
+    } else if (hasLogged && to.name === "login") {
+        return { name: tempToPageName };
     }
 });
 
