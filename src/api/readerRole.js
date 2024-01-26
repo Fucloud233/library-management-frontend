@@ -24,6 +24,12 @@ export async function getReaderRole() {
         .then((resp) => resp.data);
 }
 
+export async function getReaderRoleOptions() {
+    return await utils
+        .getRequest(utils.getApiUrl("role/list/option"))
+        .then((resp) => resp.data);
+}
+
 export async function getReaderRoleById(id) {
     return await utils
         .getRequest(utils.getApiUrl(`role/${id}`))
