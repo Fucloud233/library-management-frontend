@@ -2,10 +2,10 @@
     <div id="container">
         <el-aside width="300px">
             <el-menu default-active="1" @select="handleSelect">
-                <div style="text-align: center">
-                    <h1>图书管理系统</h1>
+                <div style="text-align: center; background-color: #409eff">
+                    <h1 style="color: white">图书馆管理系统</h1>
                 </div>
-                <el-divider style="margin: 5px 0 5px 0" />
+                <!-- <el-divider style="margin: 5px 0 5px 0" /> -->
                 <el-menu-item index="/affair">
                     <el-icon><Sort /></el-icon>图书借还
                 </el-menu-item>
