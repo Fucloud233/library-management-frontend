@@ -71,6 +71,17 @@
             </template>
         </el-table-column>
     </el-table>
+
+    <!-- 表格分页 -->
+    <div style="padding-top: 15px">
+        <el-pagination
+            layout="prev, pager, next"
+            :total="listLength"
+            v-model:current-page="pageNum"
+            :page-size="pageSize"
+            @change="handleQuery()"
+        />
+    </div>
 </template>
 
 <script>
@@ -83,7 +94,7 @@ export default {
             searchInfo: {
                 kind: 1,
                 content: undefined,
-                role: 1,
+                role: -1,
             },
             searchKinds: [
                 {
@@ -101,6 +112,9 @@ export default {
             ],
             searchOptions: [],
             list: [],
+            listLength: 0,
+            pageNum: 0,
+            pageSize: 5,
         };
     },
     mounted() {
@@ -114,7 +128,8 @@ export default {
                 return;
             }
 
-            this.list = result.data;
+            this.list = result.data.list;
+            this.listLength = result.data.length;
         },
         async getOptions() {
             let result = await getReaderRoleOptions();
@@ -152,12 +167,18 @@ export default {
                 condition.roleId = role;
             }
 
+            // 3. 分页
+            condition.pageNum = this.pageNum - 1;
+            condition.pageSize = this.pageSize;
+
             let result = await getReaderList(condition);
             if (result.code !== 0) {
                 console.log("err:", result);
                 return;
             }
-            this.list = result.data;
+
+            this.list = result.data.list;
+            this.listLength = result.data.length;
         },
     },
 };
